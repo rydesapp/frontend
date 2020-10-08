@@ -38,6 +38,7 @@ class AuthBloc extends Bloc<AuthState> {
   }
 
   public setLoading(value: boolean): void {
+    //
     this.next({
       ...this.getValue(),
       loading: value,
