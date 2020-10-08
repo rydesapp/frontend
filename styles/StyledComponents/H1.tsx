@@ -5,6 +5,7 @@ const H1 = styled.h1`
   line-height: 1.15;
   font-size: 4rem;
   text-align: center;
+  font-weight: 400;
 `;
 
 export default H1;
