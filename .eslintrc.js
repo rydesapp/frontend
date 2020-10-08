@@ -30,7 +30,8 @@ module.exports = {
     "react/prop-types": 0,
     "react/jsx-props-no-spreading": ["error", { custom: "ignore" }],
     "prettier/prettier": "error",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-underscore-dangle": "off",
   },
   settings: {
     "import/resolver": {
