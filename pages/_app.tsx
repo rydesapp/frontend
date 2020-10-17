@@ -1,27 +1,17 @@
-import { withBlocs } from "@bloc-js/nextjs-bloc";
-import App from "next/app";
-import AuthBloc from "../src/bloc/AuthBloc";
-import { BlocContext, BlocContextValue } from "../src/context/BlocContext";
+import { ApolloProvider } from "@apollo/client";
+import App, { AppProps } from "next/app";
+import { AppComponent } from "next/dist/next-server/lib/router/router";
+import { useApollo } from "../src/api/client";
 import "../styles/globals.css";
 
-interface AppProps {
-  blocs: BlocContextValue;
-}
+const MyApp: AppComponent = ({ Component, pageProps }) => {
+  const apolloClient = useApollo(pageProps.initialApolloState);
 
-class MyApp extends App<AppProps> {
-  render(): JSX.Element {
-    const { Component, pageProps, blocs } = this.props;
-    return (
-      <BlocContext.Provider value={blocs}>
-        <Component {...pageProps} />
-      </BlocContext.Provider>
-    );
-  }
-}
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
+};
 
-export default withBlocs<BlocContextValue>(
-  (initialProps) => ({
-    authBloc: new AuthBloc(initialProps.authBloc),
-  }),
-  MyApp
-);
+export default MyApp;

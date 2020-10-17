@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import Head from "next/head";
 import { NextComponentType } from "next";
-import { useBlocState } from "@bloc-js/react-bloc";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { BlocContext, BlocContextValue } from "../../src/context/BlocContext";
 import Container from "../../styles/StyledComponents/Container";
 import H1 from "../../styles/StyledComponents/H1";
 import Main from "../../styles/StyledComponents/Main";
 import ErrorMessage from "../../styles/StyledComponents/ErrorMessage";
+import { login } from "../../src/api/authentincation-api";
+import LoginForm from "../../src/components/LoginForm/LoginForm";
 
 const LoginWrapper = styled.form`
   margin: 8px 0 32px;
@@ -60,38 +60,6 @@ const LoginButton = styled.button`
 `;
 
 const AdminLogin: NextComponentType = () => {
-  const { authBloc } = useContext(BlocContext) as BlocContextValue;
-  const auth = useBlocState(authBloc);
-  const router = useRouter();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (typeof auth !== "undefined") {
-      router.push("/admin/dashboard");
-    } else {
-      router.prefetch("/admin/dashboard");
-    }
-  }, [auth]);
-
-  const handleLogin = useCallback(() => {
-    setLoading(true);
-    authBloc
-      .login(username, password)
-      .then(() => {
-        setError(null);
-        router.push("/admin/dashboard");
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [username, password]);
-
   return (
     <Container>
       <Head>
@@ -104,26 +72,7 @@ const AdminLogin: NextComponentType = () => {
         <H1>Rydes</H1>
         <p>Welcome to Rydes adminstration</p>
         <br />
-        <LoginWrapper onSubmit={(e) => e.preventDefault()}>
-          <Input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-            disabled={loading}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-            disabled={loading}
-          />
-          {error && <ErrorMessage>Error: {error}</ErrorMessage>}
-          <LoginButton type="submit" onClick={handleLogin} disabled={loading}>
-            Login
-          </LoginButton>
-        </LoginWrapper>
+        <LoginForm />
       </Main>
     </Container>
   );
