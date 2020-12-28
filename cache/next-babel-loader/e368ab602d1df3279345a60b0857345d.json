@@ -1,1 +1,0 @@
-{"ast":null,"code":"import styled from \"@emotion/styled\";\nconst Main = styled.div`\n  padding: 5rem 0;\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n`;\nexport default Main;","map":null,"metadata":{},"sourceType":"module"}
