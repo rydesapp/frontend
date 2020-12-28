@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"@emotion/styled\";\nconst ErrorMessage = styled.div`\n  margin: 8px 0;\n  padding: 8px;\n  color: red;\n`;\nexport default ErrorMessage;","map":null,"metadata":{},"sourceType":"module"}
